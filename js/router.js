@@ -11,7 +11,7 @@ App.HomeRoute = Ember.Route.extend({
 	}
 });
 
-App.AppAuthRoute = Ember.Route.extend({
+App.AuthRoute = Ember.Route.extend({
 	model: function(){
 
 	},

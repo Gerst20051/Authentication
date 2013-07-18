@@ -58,16 +58,20 @@ if ($AUTH === "facebook") {
 			die("OH NOOOOES! YIKES!");
 			header('Location: connect.php?oauth=twitter&error');
 		}
-		// OR
+
 		if (!empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empty($_SESSION['oauth_token_secret'])) {
 		} else {
 			die("OH NOOOOES!");
 			header('Location: connect.php?oauth=twitter&error');
 		}
 
+		if (isset($_GET['denied'])) {
+			die("Please login!");
+		}
+
 		$twitteroauth = new TwitterOAuth(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 		die($_GET['oauth_verifier']);
-		$access_token = $twitteroauth->getAccessToken($_GET['oauth_verifier']);
+		$access_token = $twitteroauth->getAccessToken($_REQUEST['oauth_verifier']);
 		$_SESSION['access_token'] = $access_token;
 		$user_info = $twitteroauth->get('account/verify_credentials');
 		print_r($user_info);
